@@ -2,9 +2,15 @@ import { Text, View, SafeAreaView } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 
+import 'react-native-url-polyfill/auto'
+
 import HomeScreen from "./screens/HomeScreen"
 
-const Stack = createNativeStackNavigator()
+export type RootStackParamList = {
+  Home: undefined
+}
+
+const Stack = createNativeStackNavigator<RootStackParamList>()
 
 export default function App() {
   return (

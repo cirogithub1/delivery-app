@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, Image } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 
 import { Colors } from '../constants/colors'
+import { urlFor } from '../sanity'
 
 interface Props {
 	id: string
@@ -34,7 +35,7 @@ const RestaurantCard = ({
 			<Image 
 				className='h-36 w-36 rounded-sm'
 				source={{
-					uri: imgUrl
+					uri: urlFor(imgUrl).url()
 				}} />
 
 			<View className='px-3 pb-4'>

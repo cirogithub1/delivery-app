@@ -1,6 +1,5 @@
 import { useEffect, useLayoutEffect, useState } from 'react'
 
-import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView, View, Text, Image, TextInput, ScrollView } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 
@@ -10,10 +9,18 @@ import FeaturedRow from '../components/FeaturedRow'
 
 import sanityClient from "../sanity"
 
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { useNavigation } from '@react-navigation/native'
+import { RootStackParamList } from '../App'
+
+export type NavigationProps = NativeStackNavigationProp<
+	RootStackParamList, 
+	"Home">
+
 // import { UserIcon, ChevronDownIcon,   } from "react-native-heroicons/outline"
 
 const HomeScreen = () => {
-	const navigation = useNavigation()
+	const navigation = useNavigation<NavigationProps>()
 	const [featuredCategories, setFeaturedCategories] = useState([])
 	
 	// useLayoutEffect(() => {
@@ -35,6 +42,9 @@ const HomeScreen = () => {
 			`)
 			.then((data:any) => {
 				setFeaturedCategories(data)
+			})
+			.catch((error) => {
+				console.log(error)
 			})
 	}, [])
 	
@@ -88,18 +98,14 @@ const HomeScreen = () => {
 				<Categories />
 
 				{/* featured */}
-				<FeaturedRow 
-					id="1"
-					title="featured" 
-					description='Paid placements from our partners' />
-				<FeaturedRow 
-					id="2"
-					title="Tasty Discounts" 
-					description='Everyone`s favorite dishes' />
-				<FeaturedRow 
-					id="3"
-					title="offers near you" 
-					description='Support your local restaurants tonight!' />
+				{featuredCategories?.map((category:any) => (
+					<FeaturedRow 
+						key={category._id}
+						id={category._id}
+						title={category.name}
+						description={category.short_description}
+					/>
+				))}
 			</ScrollView>
 		
 		</SafeAreaView>

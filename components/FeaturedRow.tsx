@@ -1,8 +1,11 @@
+import { useEffect, useState } from 'react'
 import { View, Text, ScrollView } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 
 import { Colors } from "../constants/colors"
 import RestaurantCard from './RestaurantCard'
+
+import sanityClient from "../sanity"
 
 interface Props {
 	id: string
@@ -11,6 +14,33 @@ interface Props {
 }
 
 const FeaturedRow = ({ id, title, description }: Props) => {
+	const [restaurants, setRestaurants] = useState([])
+
+	useEffect(() => {
+		sanityClient
+			.fetch(`
+				*[_type == "featured" && _id == $id] {
+					...,
+					restaurants[]-> {
+						...,
+						dishes[]->,
+						type-> {
+							name
+						}
+					}
+				}[0]
+			`, { id: id })
+			.then((data:any) => {
+				setRestaurants(data?.restaurants)
+			})
+			.catch((error) => {
+				console.log(error)
+			})
+
+	}, [])
+
+	console.log('restaurants: ', restaurants)
+	
 	return (
 		<View>
 			<View className="mt-4 flex-row items-center justify-between px-4">
@@ -29,45 +59,22 @@ const FeaturedRow = ({ id, title, description }: Props) => {
 				}}	
 				showsHorizontalScrollIndicator={false}>
 					{/* Restaurants Cards */}
-					<RestaurantCard 
-						id = "id"
-						imgUrl = "https://www.themealdb.com/images/media/meals/y7h0lq1683208991.jpg"
-						title = "title"
-						rating = "rating"
-						genre = "genre"
-						address = "address"
-						short_description = "short_description"
-						dishes = "dishes"
-						long = "long"
-						lat = "lat"
-					/>
-					
-					<RestaurantCard 
-						id = "id"
-						imgUrl = "https://www.themealdb.com/images/media/meals/y7h0lq1683208991.jpg"
-						title = "title"
-						rating = "rating"
-						genre = "genre"
-						address = "address"
-						short_description = "short_description"
-						dishes = "dishes"
-						long = "long"
-						lat = "lat"
-					/>
 
-					<RestaurantCard 
-						id = "id"
-						imgUrl = "https://www.themealdb.com/images/media/meals/y7h0lq1683208991.jpg"
-						title = "title"
-						rating = "rating"
-						genre = "genre"
-						address = "address"
-						short_description = "short_description"
-						dishes = "dishes"
-						long = "long"
-						lat = "lat"
-					/>
-
+					{restaurants?.map((restaurant:any) => (
+						<RestaurantCard 
+							key = {restaurant._id}
+							id = {restaurant._id}
+							imgUrl = {restaurant.image}
+							title = {restaurant.name}
+							rating = {restaurant.rating}
+							genre = {restaurant.type?.name}
+							address = {restaurant.address}
+							short_description = {restaurant.short_description}
+							dishes = {restaurant.dishes}
+							long = {restaurant.long}
+							lat = {restaurant.lat}
+						/>
+					))}
 			</ScrollView>
 		</View>
 	)
