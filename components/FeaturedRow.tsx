@@ -39,7 +39,7 @@ const FeaturedRow = ({ id, title, description }: Props) => {
 
 	}, [])
 
-	console.log('restaurants: ', restaurants)
+	// console.log('restaurants: ', restaurants)
 	
 	return (
 		<View>

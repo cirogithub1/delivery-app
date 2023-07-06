@@ -1,11 +1,32 @@
 import { View, Text, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+
+import sanityClient, { urlFor } from '../sanity'
 import CategoryCard from './CategoryCard'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+
 
 const Categories = () => {
+	const [categories, setCategories] = useState([])
+
+	useEffect(() => {
+		sanityClient.fetch(`
+			*[_type == "category"]
+		`)
+		.then((data:any) => {
+			setCategories(data)
+		})
+		.catch(err => {
+			console.log(err)
+		})
+	}
+	, [])
 	
+	// console.log(categories)
+
 	return (
 		<ScrollView
+			className=''
 			contentContainerStyle={{
 				paddingHorizontal: 15,
 				paddingTop: 10,
@@ -13,12 +34,12 @@ const Categories = () => {
 			horizontal
 			showsHorizontalScrollIndicator={false}
 		>
-			<CategoryCard imgUrl = "https://www.themealdb.com/images/media/meals/bopa2i1683209167.jpg" title="testing 1"/>
-			<CategoryCard imgUrl = "https://www.themealdb.com/images/media/meals/bopa2i1683209167.jpg" title="testing 2"/>
-			<CategoryCard imgUrl = "https://www.themealdb.com/images/media/meals/bopa2i1683209167.jpg" title="testing 3"/>
-			<CategoryCard imgUrl = "https://www.themealdb.com/images/media/meals/bopa2i1683209167.jpg" title="testing 4"/>
-			<CategoryCard imgUrl = "https://www.themealdb.com/images/media/meals/bopa2i1683209167.jpg" title="testing 5"/>
-			<CategoryCard imgUrl = "https://www.themealdb.com/images/media/meals/bopa2i1683209167.jpg" title="testing 6"/>
+			{categories?.map((category:any) => (
+				<CategoryCard 
+					key={category._id}
+					imgUrl = {urlFor(category.image).url()} 
+					title={category.name}/>
+			))}
 		</ScrollView>
 	)
 }

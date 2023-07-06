@@ -15,7 +15,6 @@ interface Props {
 	dishes: string
 	long: string
 	lat: string
-
 }
 
 const RestaurantCard = ({ 
@@ -31,15 +30,16 @@ const RestaurantCard = ({
 	lat }: Props) => {
 
 	return (
-		<TouchableOpacity className="bg-white mr-3 shadow">
+		<TouchableOpacity className="bg-white mr-2 shadow-lg shadow-gray-600 rounded-sm">
 			<Image 
-				className='h-36 w-36 rounded-sm'
+				className='h-32 w-56 rounded-t-sm'
 				source={{
 					uri: urlFor(imgUrl).url()
-				}} />
+				}}
+				style={{resizeMode: "cover"}} />
 
-			<View className='px-3 pb-4'>
-				<Text className='font-bold text-lg pt-2'>{title}</Text>
+			<View className='px-3 pb-3'>
+				<Text className='font-bold text-lg pt-1'>{title}</Text>
 
 				<View className='flex-row items-center space-x-1'>
 					<Ionicons name='star' size={20} color={Colors.amber_300} 
@@ -53,7 +53,7 @@ const RestaurantCard = ({
 				<View className='flex-row items-center space-x-1'>
 					<Ionicons name='location-outline' size={22} color={Colors.gray_400} />
 
-					<Text className='text-xs text-gray-500'>Nearby - {address}</Text>
+					<Text className='text-xs text-gray-500'>Nearby - {address.substring(0, 17)}</Text>
 					
 				</View>
 			</View>

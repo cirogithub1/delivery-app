@@ -1,6 +1,8 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 
+import { urlFor } from '../sanity'
+
 interface Props {
 	imgUrl: string
 	title: string
@@ -8,9 +10,9 @@ interface Props {
 
 const CategoryCard = ({ imgUrl, title }: Props) => {
 	return (
-		<TouchableOpacity>
+		<TouchableOpacity className='mr-1'>
 			<Image 
-				className='h-20 w-20'
+				className='h-20 w-20 rounded-sm'
 				source={{
 					uri: imgUrl
 				}} />

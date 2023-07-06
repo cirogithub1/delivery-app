@@ -51,7 +51,7 @@ const HomeScreen = () => {
 	console.log('featuredCategories: ', featuredCategories)
 
 	return (
-		<SafeAreaView className='bg-white pt-8'>
+		<SafeAreaView className='bg-gray-100 pt-8'>
 		
 			{/* Header */}
 			<View className="flex-row pb-3 items-center mx-4 space-x-2 px-1">
@@ -107,7 +107,6 @@ const HomeScreen = () => {
 					/>
 				))}
 			</ScrollView>
-		
 		</SafeAreaView>
 	)
 }
