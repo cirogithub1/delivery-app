@@ -46,7 +46,7 @@ const FeaturedRow = ({ id, title, description }: Props) => {
 			<View className="mt-4 flex-row items-center justify-between px-4">
 				<Text className='font-bold text-lg'>{title}</Text>
 				
-				<Ionicons name='arrow-forward-outline' size={20} color={`${Colors.blue_400}`} />
+				<Ionicons name='arrow-forward-outline' size={20} color={Colors.blue_400} />
 			</View>
 
 			<Text className="text-xs text-gray-500 px-4">{description}</Text>

@@ -4,6 +4,14 @@ import { Ionicons } from '@expo/vector-icons'
 import { Colors } from '../constants/colors'
 import { urlFor } from '../sanity'
 
+import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootStackParamList } from '../App'
+
+export type NavigationProps = NativeStackNavigationProp<
+	RootStackParamList, 
+	"Home"
+> 
 interface Props {
 	id: string
 	imgUrl: string
@@ -28,9 +36,25 @@ const RestaurantCard = ({
 	dishes, 
 	long, 
 	lat }: Props) => {
+		const navigation = useNavigation<NavigationProps>()
 
 	return (
-		<TouchableOpacity className="bg-white mr-2 shadow-lg shadow-gray-600 rounded-sm">
+		<TouchableOpacity 
+			className="bg-white mr-2 shadow-lg shadow-gray-600 rounded-sm"
+			onPress={() => {navigation.navigate("Restaurant", {
+				id, 
+				imgUrl, 
+				title, 
+				rating, 
+				genre, 
+				address, 
+				short_description, 
+				dishes, 
+				long, 
+				lat
+				}
+			)}}		
+		>
 			<Image 
 				className='h-32 w-56 rounded-t-sm'
 				source={{
@@ -42,8 +66,7 @@ const RestaurantCard = ({
 				<Text className='font-bold text-lg pt-1'>{title}</Text>
 
 				<View className='flex-row items-center space-x-1'>
-					<Ionicons name='star' size={20} color={Colors.amber_300} 
-					/>
+					<Ionicons name='star' size={20} color={Colors.amber_300} />
 
 					<Text className='text-xs text-gray-500'>
 						<Text className='text-green-500'>{rating}</Text> - {genre}
@@ -51,7 +74,7 @@ const RestaurantCard = ({
 				</View>
 
 				<View className='flex-row items-center space-x-1'>
-					<Ionicons name='location-outline' size={22} color={Colors.gray_400} />
+					<Ionicons name='location-outline' size={20} color={Colors.gray_400} />
 
 					<Text className='text-xs text-gray-500'>Nearby - {address.substring(0, 17)}</Text>
 					

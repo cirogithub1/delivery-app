@@ -1,6 +1,8 @@
 import { useEffect, useLayoutEffect, useState } from 'react'
 
-import { SafeAreaView, View, Text, Image, TextInput, ScrollView } from 'react-native'
+import { View, Text, Image, TextInput, ScrollView } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+
 import { Ionicons } from '@expo/vector-icons'
 
 import { Colors } from '../constants/colors'
@@ -51,7 +53,7 @@ const HomeScreen = () => {
 	console.log('featuredCategories: ', featuredCategories)
 
 	return (
-		<SafeAreaView className='bg-gray-100 pt-8'>
+		<SafeAreaView className='bg-gray-100'>
 		
 			{/* Header */}
 			<View className="flex-row pb-3 items-center mx-4 space-x-2 px-1">
@@ -67,7 +69,7 @@ const HomeScreen = () => {
 					</Text>
 					<Text className='font-bold text-xl'>
 						Current location
-
+						
 						<Ionicons name='chevron-down-outline' size={20} color={`${Colors.blue_400}`} />
 					</Text>
 				</View>
