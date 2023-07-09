@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { View, Text, Image, TextInput, ScrollView } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -32,25 +32,29 @@ const HomeScreen = () => {
 	// }, [])
 
 	useEffect(() => {
-		sanityClient
-			.fetch(`
-				*[_type == "featured"] {
-					...,
-					restaurants[]->{
+		async function fetchFeatured() {
+			await sanityClient
+				.fetch(`
+					*[_type == "featured"] {
 						...,
-						dishes[]->
+						restaurants[]->{
+							...,
+							dishes[]->
+						}
 					}
-				}
-			`)
-			.then((data:any) => {
-				setFeaturedCategories(data)
-			})
-			.catch((error) => {
-				console.log(error)
-			})
+				`)
+				.then((data:any) => {
+					setFeaturedCategories(data)
+				})
+				.catch((error) => {
+					console.log(error)
+				})
+		}
+
+		fetchFeatured()
 	}, [])
 	
-	console.log('featuredCategories: ', featuredCategories)
+	// console.log('featuredCategories: ', featuredCategories)
 
 	return (
 		<SafeAreaView className='bg-gray-100'>

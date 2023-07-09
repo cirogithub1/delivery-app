@@ -3,8 +3,12 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack"
 
 import 'react-native-url-polyfill/auto'
 
+import { store } from './store'
+import { Provider } from 'react-redux'
+
 import HomeScreen from "./screens/HomeScreen"
 import RestaurantScreen from "./screens/RestaurantScreen"
+import BasketScreen from "./screens/BasketScreen"
 
 interface RestaurantProps {
 	id: string
@@ -19,9 +23,18 @@ interface RestaurantProps {
 	lat: string
 }
 
+interface DishProps {
+  id: string
+  name: string
+  short_description: string
+  price: number
+  image: string
+}
+
 export type RootStackParamList = {
   Home: undefined
   Restaurant: RestaurantProps | undefined
+  Basket: DishProps | undefined
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
@@ -29,19 +42,36 @@ const Stack = createNativeStackNavigator<RootStackParamList>()
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen 
-          options={{headerShown: false}}
-          name="Home" 
-          component={HomeScreen}/>
-        
-        <Stack.Screen 
-          options={{headerShown: false}}
-          name="Restaurant"
-          component={RestaurantScreen}
-        />
-
-      </Stack.Navigator>
+      <Provider store={store}>
+        <Stack.Navigator 
+          initialRouteName="Home"
+          screenOptions={{
+            headerShown: false, 
+            navigationBarHidden: true, 
+            statusBarHidden: true,
+          }}
+        >
+          <Stack.Screen 
+            // options={{headerShown: false}}
+            name="Home" 
+            component={HomeScreen}
+          />
+          
+          <Stack.Screen 
+            // options={{
+            //   statusBarHidden: true
+            // }}
+            name="Restaurant"
+            component={RestaurantScreen}
+          />
+          
+          <Stack.Screen 
+            // options={{headerShown: false}}
+            name="Basket"
+            component={BasketScreen}
+          />
+        </Stack.Navigator>
+      </Provider>
     </NavigationContainer>
-  );
+  )
 }

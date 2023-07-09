@@ -4,6 +4,9 @@ import { Ionicons } from '@expo/vector-icons'
 
 import { urlFor } from '../sanity'
 import { Colors } from '../constants/colors'
+import { useDispatch, useSelector, shallowEqual } from 'react-redux'
+import { addToBasket, ripFromBasket, selectBasketItemById, selectBasketItems } from '../features/basketSlice'
+import { currencyFormat } from '../utils/currency-format'
 
 interface Props {
 	id: string
@@ -16,9 +19,21 @@ interface Props {
 const DishRow = ({ id, name, description, price, image }: Props) => {
 	const [isPressed, setIsPressed] = useState(false)
 
-	function currencyFormat(num:number) {
-		return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '€1,')
+	const dispatch = useDispatch()
+	const items = useSelector((state:any) => selectBasketItemById(state, id), shallowEqual)
+	// here state is the actual dish
+
+	const addItem = () => {
+		dispatch(addToBasket({ id, name, description, price, image }))
 	}
+
+	const removeItem = () => {
+		if (items.length > 0) {
+			dispatch(ripFromBasket({ id }))
+		} 
+	}
+
+	// console.log("items", items)
 
 	return (
 		<>
@@ -48,16 +63,20 @@ const DishRow = ({ id, name, description, price, image }: Props) => {
 			{isPressed && (
 				<View>
 					<View className='bg-white items-center justify-center flex-row pb-3 space-x-3'>
-						<TouchableOpacity>
-							<Ionicons name="remove-circle" size={34} color={Colors.cyan_300}/>
+						<TouchableOpacity 
+							disabled={items.length === 0}
+							onPress={removeItem}>
+							<Ionicons name="remove-circle" size={38} color={`${items.length > 0 ? Colors.cyan_300 : Colors.gray_400}`}/>
 						</TouchableOpacity>
 						
-						<Text>
-							0
+						<Text className='text-base'>
+							{items.length}
 						</Text>
 
-						<TouchableOpacity>
-							<Ionicons name="add-circle" size={34} color={Colors.cyan_300}/>
+						<TouchableOpacity 
+							onPress={addItem}
+						>
+							<Ionicons name="add-circle" size={38} color={Colors.cyan_300}/>
 						</TouchableOpacity>
 					</View>
 				</View>

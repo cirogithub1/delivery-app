@@ -10,7 +10,7 @@ import { RootStackParamList } from '../App'
 
 export type NavigationProps = NativeStackNavigationProp<
 	RootStackParamList, 
-	"Home"
+	"Home" ///this is the name of the screen where i'm gonna return
 > 
 interface Props {
 	id: string
