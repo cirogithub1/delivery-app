@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { RouteProp, useRoute } from '@react-navigation/native'
 
 import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native'
@@ -12,6 +13,8 @@ import { RootStackParamList } from '../App'
 
 import DishRow from '../components/DishRow';
 import BasketBanner from '../components/BasketBanner';
+import { useDispatch } from 'react-redux';
+import { setRestaurant } from '../features/restaurantSlice';
 
 export type NavigationProps = NativeStackNavigationProp<
 	RootStackParamList, 
@@ -47,6 +50,23 @@ const RestaurantScreen = () => {
 	}} = route
 	const navigation = useNavigation<NavigationProps>()
 	
+	const dispatch = useDispatch()
+
+	useEffect(() => {
+		dispatch(
+			setRestaurant({
+				id,
+				imgUrl, 
+				title, 
+				rating, 
+				genre, 
+				address, 
+				short_description, 
+				dishes
+			})
+		)
+	}, [])
+		
 	return (
 		<>
 			<BasketBanner />
@@ -102,7 +122,7 @@ const RestaurantScreen = () => {
 					</TouchableOpacity>
 				</View>
 
-				<View>
+				<View className='pb-36'>
 					<Text className="text-base px-2 py-2 mb-1 font-extrabold text-center"> Menu</Text>
 
 					{/* Dishes */}

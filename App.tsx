@@ -46,6 +46,7 @@ export default function App() {
         <Stack.Navigator 
           initialRouteName="Home"
           screenOptions={{
+            statusBarStyle: "dark",
             headerShown: false, 
             navigationBarHidden: true, 
             statusBarHidden: true,

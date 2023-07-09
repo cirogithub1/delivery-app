@@ -19,12 +19,12 @@ const BasketBanner = () => {
 	const basketTotal = useSelector(selectBasketTotal)
 
 	return (
-		<View className='absolute bottom-8 w-full z-10'>
+		<View className='absolute bottom-8 w-full z-10 px-2'>
 			<TouchableOpacity
-				className='bg-cyan-600 opacity-90 p-4 rounded-lg flex-row items-center justify-center space-x-1'
+				className='bg-cyan-600 opacity-90 px-4 py-3 rounded-lg flex-row items-center justify-center space-x-1'
 				onPress={() => navigation.navigate('Basket')}
 			>
-				<Text className='text-white border border-white font-extrabold text-base bg-cyan-900 py-1 px-2 rounded-sm'>{items.length}</Text>	
+				<Text className='text-white border border-white font-extrabold text-base bg-pink-300 Xbg-cyan-900 py-0 px-2 rounded-sm'>{items.length}</Text>	
 				
 				<Text className='flex-1 text-center text-lime-200 font-extrabold'>Go to Basket</Text>	
 				

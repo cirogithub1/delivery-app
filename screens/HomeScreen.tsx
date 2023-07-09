@@ -15,9 +15,13 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useNavigation } from '@react-navigation/native'
 import { RootStackParamList } from '../App'
 
+//@ts-ignore
+import logo from "../assets/delivery_scooter.png"
+
 export type NavigationProps = NativeStackNavigationProp<
 	RootStackParamList, 
 	"Home">
+
 
 // import { UserIcon, ChevronDownIcon,   } from "react-native-heroicons/outline"
 
@@ -63,9 +67,11 @@ const HomeScreen = () => {
 			<View className="flex-row pb-3 items-center mx-4 space-x-2 px-1">
 				<Image 
 					className='h-7 w-7 bg-gray-300 rounded-full'
-					source={{
-						uri: "https://links.papareact.com/wru"
-					}}/>
+					source={logo}
+					// {{
+					// 	uri: "https://links.papareact.com/wru"
+					// }}
+				/>
 
 				<View className='flex-1'>
 					<Text className='font-bold text-gray-400 text-xs'>
