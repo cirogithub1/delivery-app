@@ -9,6 +9,8 @@ import { Provider } from 'react-redux'
 import HomeScreen from "./screens/HomeScreen"
 import RestaurantScreen from "./screens/RestaurantScreen"
 import BasketScreen from "./screens/BasketScreen"
+import PreparingOrderScreen from "./screens/PreparingOrderScreen"
+import { Colors } from "./constants/colors"
 
 interface RestaurantProps {
 	id: string
@@ -33,6 +35,7 @@ interface DishProps {
 
 export type RootStackParamList = {
   Home: undefined
+  PreparingOrder: undefined
   Restaurant: RestaurantProps | undefined
   Basket: DishProps | undefined
 }
@@ -70,6 +73,21 @@ export default function App() {
             // options={{headerShown: false}}
             name="Basket"
             component={BasketScreen}
+            options={{
+              presentation: "modal"
+            }}
+          />
+
+          <Stack.Screen 
+            // options={{headerShown: false}}
+            name="PreparingOrder"
+            component={PreparingOrderScreen}
+            options={{
+              navigationBarHidden: true,
+              statusBarHidden: false,
+              // navigationBarColor: Colors.cyan_400,
+              statusBarColor: Colors.teal_550,
+            }}
           />
         </Stack.Navigator>
       </Provider>

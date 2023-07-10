@@ -14,5 +14,7 @@ export const Colors = {
 	red_600: "#dc2626",
 	rose_400:  "#fb7185",
 	rose_500:  "#f43f5e",
+	teal_500:  "#14b8a6",
+	teal_550:  "#00ccbb",
 	teal_600:  "#0d9488",
 }

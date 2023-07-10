@@ -1,24 +1,33 @@
 import { useState, useMemo } from 'react'
 import { View, Text, SafeAreaView, TouchableOpacity, Image, ScrollView } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Ionicons } from '@expo/vector-icons'
 
+import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootStackParamList } from '../App'
+
 //@ts-ignore
 import logo from "../assets/delivery_scooter.png"
 
-import { ripFromBasket, selectBasketItems } from '../features/basketSlice'
+import { ripFromBasket, selectBasketItems, selectBasketTotal } from '../features/basketSlice'
 import { selectRestaurant } from '../features/restaurantSlice'
 import { Colors } from '../constants/colors'
 import { urlFor } from '../sanity'
 import { currencyFormat } from '../utils/currency-format'
 
+export type NavigationProps = NativeStackNavigationProp<
+	RootStackParamList, 
+	"Basket" ///this is the name of the screen where i'm gonna return
+> 
+
 const BasketScreen = () => {
-	const navigation = useNavigation()
+	const navigation = useNavigation<NavigationProps>()
 	const restaurant = useSelector(selectRestaurant)
 	const items = useSelector(selectBasketItems)
 	const dispatch = useDispatch()
+	const basketTotal = useSelector(selectBasketTotal)
 
 	const [groupedItemsInBasket, setGroupedItemsInBasket] = useState([])
 	// console.log(JSON.stringify(groupedItemsInBasket))
@@ -57,7 +66,7 @@ const BasketScreen = () => {
 						source={logo}
 					/>
 
-					<Text className='flex-1'>Delivery around 60 min</Text>
+					<Text className='flex-1'>Delivery in around 60 min</Text>
 
 					<TouchableOpacity>
 						<Text className="text-cyan-500">Charge</Text>
@@ -71,7 +80,7 @@ const BasketScreen = () => {
 							<Text className='font-extrabold'>{items.length}  x</Text>
 
 							<Image 
-								className='h-12 w-12 rounded-full'
+								className='h-14 w-14 rounded-full'
 								source={{
 									uri: urlFor(items[0].image).url()
 								}}/>
@@ -93,6 +102,42 @@ const BasketScreen = () => {
 						</View>
 					))}
 				</ScrollView>
+
+				{/* Totals */}
+				<View className='px-6 py-2 bg-white space-y-2'>
+					<View className='flex-row justify-between'>
+						<Text className='text-gray-400'>Subtotal</Text>
+
+						<Text className='text-gray-400'>
+							{currencyFormat(basketTotal)}
+						</Text>
+					</View>
+
+					<View className='flex-row justify-between'>
+						<Text className='text-gray-400'>Delivery</Text>
+
+						<Text className='text-gray-400'>
+							{currencyFormat(basketTotal * .1)}
+						</Text>
+					</View>
+
+					<View className='flex-row justify-between'>
+						<Text className=''>Order Total</Text>
+
+						<Text className='font-extrabold'>
+							{currencyFormat(basketTotal * 1.1)}
+						</Text>
+					</View>
+
+					<TouchableOpacity 
+						className='rounded-lg bg-cyan-400 p-3'
+						onPress={() => navigation.navigate("PreparingOrder")}
+					>
+						<Text className='text-center text-lg text-pink-500'>
+							Place Order
+						</Text>
+					</TouchableOpacity>
+				</View>
 			</View>
 		</SafeAreaView>
 	)
