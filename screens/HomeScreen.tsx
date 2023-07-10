@@ -12,8 +12,8 @@ import FeaturedRow from '../components/FeaturedRow'
 import sanityClient from "../sanity"
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { useNavigation } from '@react-navigation/native'
 import { RootStackParamList } from '../App'
+import { useNavigation } from '@react-navigation/native'
 
 //@ts-ignore
 import logo from "../assets/delivery_scooter.png"
@@ -21,7 +21,6 @@ import logo from "../assets/delivery_scooter.png"
 export type NavigationProps = NativeStackNavigationProp<
 	RootStackParamList, 
 	"Home">
-
 
 // import { UserIcon, ChevronDownIcon,   } from "react-native-heroicons/outline"
 

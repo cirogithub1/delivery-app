@@ -62,7 +62,9 @@ const RestaurantScreen = () => {
 				genre, 
 				address, 
 				short_description, 
-				dishes
+				dishes,
+				lat,
+				long
 			})
 		)
 	}, [])

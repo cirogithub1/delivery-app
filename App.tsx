@@ -11,6 +11,7 @@ import RestaurantScreen from "./screens/RestaurantScreen"
 import BasketScreen from "./screens/BasketScreen"
 import PreparingOrderScreen from "./screens/PreparingOrderScreen"
 import { Colors } from "./constants/colors"
+import DeliveryScreen from "./screens/DeliveryScreen"
 
 interface RestaurantProps {
 	id: string
@@ -36,6 +37,7 @@ interface DishProps {
 export type RootStackParamList = {
   Home: undefined
   PreparingOrder: undefined
+  Delivery: undefined
   Restaurant: RestaurantProps | undefined
   Basket: DishProps | undefined
 }
@@ -56,21 +58,16 @@ export default function App() {
           }}
         >
           <Stack.Screen 
-            // options={{headerShown: false}}
             name="Home" 
             component={HomeScreen}
           />
           
           <Stack.Screen 
-            // options={{
-            //   statusBarHidden: true
-            // }}
             name="Restaurant"
             component={RestaurantScreen}
           />
           
           <Stack.Screen 
-            // options={{headerShown: false}}
             name="Basket"
             component={BasketScreen}
             options={{
@@ -79,14 +76,22 @@ export default function App() {
           />
 
           <Stack.Screen 
-            // options={{headerShown: false}}
             name="PreparingOrder"
             component={PreparingOrderScreen}
             options={{
-              navigationBarHidden: true,
-              statusBarHidden: false,
-              // navigationBarColor: Colors.cyan_400,
-              statusBarColor: Colors.teal_550,
+              presentation: "fullScreenModal",
+              // navigationBarHidden: true,
+              // statusBarHidden: true,
+              // navigationBarColor: Colors.teal_550,
+              // statusBarColor: Colors.teal_550,
+            }}
+          />
+
+          <Stack.Screen 
+            name="Delivery"
+            component={DeliveryScreen}
+            options={{
+              presentation: "fullScreenModal",
             }}
           />
         </Stack.Navigator>

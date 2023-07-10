@@ -1,16 +1,23 @@
-import { useNavigation } from '@react-navigation/native'
 import { useEffect } from 'react'
-import { View, Text, SafeAreaView } from 'react-native'
+import { SafeAreaView } from 'react-native'
 import * as Animatable from 'react-native-animatable'
 import * as Progress from 'react-native-progress'
 
+import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootStackParamList } from '../App'
+
+export type NavigationProps = NativeStackNavigationProp<
+	RootStackParamList, 
+	"Home">
+
 const PreparingOrderScreen = () => {
-	const navigation = useNavigation()
+	const navigation = useNavigation<NavigationProps>()
 
 	useEffect(() => {
 		setTimeout(() => {
-			navigation.goBack()
-		}, 4000)
+			navigation.navigate("Delivery")
+		}, 2000)
 	}, [])
 	
 	return (
