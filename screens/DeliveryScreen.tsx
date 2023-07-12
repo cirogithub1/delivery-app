@@ -1,5 +1,5 @@
 import { View, Text, SafeAreaView, TouchableOpacity, Image } from 'react-native'
-import MapView, { Marker } from 'react-native-maps'
+// import MapView, { Marker } from 'react-native-maps'
 
 import { useSelector } from 'react-redux'
 import { selectRestaurant } from '../features/restaurantSlice'
@@ -60,7 +60,7 @@ const DeliveryScreen = () => {
 
 			</SafeAreaView>
 
-			<MapView
+			{/* <MapView
 				className='flex-1 -mt-10 z-0'
 				initialRegion={{
 					latitude: restaurant.lat,
@@ -80,7 +80,7 @@ const DeliveryScreen = () => {
 					identifier="origin"
 					pinColor={Colors.cyan_300}
 				/>
-			</MapView>
+			</MapView> */}
 
 			<SafeAreaView className='bg-white flex-row items-center space-x-5 h-28'>
 				<Image 
