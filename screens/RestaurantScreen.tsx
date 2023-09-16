@@ -35,6 +35,7 @@ interface Props {
 }
 const RestaurantScreen = () => {
 	const route: RouteProp<{params: Props}, 'params'> = useRoute()
+
 	const { 
 		params: {
 			id,
@@ -48,6 +49,7 @@ const RestaurantScreen = () => {
 			long, 
 			lat
 	}} = route
+	
 	const navigation = useNavigation<NavigationProps>()
 	
 	const dispatch = useDispatch()

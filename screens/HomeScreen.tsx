@@ -11,21 +11,12 @@ import FeaturedRow from '../components/FeaturedRow'
 
 import sanityClient from "../sanity"
 
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RootStackParamList } from '../App'
-import { useNavigation } from '@react-navigation/native'
-
 //@ts-ignore
 import logo from "../assets/delivery_scooter.png"
-
-export type NavigationProps = NativeStackNavigationProp<
-	RootStackParamList, 
-	"Home">
 
 // import { UserIcon, ChevronDownIcon,   } from "react-native-heroicons/outline"
 
 const HomeScreen = () => {
-	const navigation = useNavigation<NavigationProps>()
 	const [featuredCategories, setFeaturedCategories] = useState([])
 	
 	// useLayoutEffect(() => {

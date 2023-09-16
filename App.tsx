@@ -10,7 +10,6 @@ import HomeScreen from "./screens/HomeScreen"
 import RestaurantScreen from "./screens/RestaurantScreen"
 import BasketScreen from "./screens/BasketScreen"
 import PreparingOrderScreen from "./screens/PreparingOrderScreen"
-import { Colors } from "./constants/colors"
 import DeliveryScreen from "./screens/DeliveryScreen"
 
 interface RestaurantProps {
